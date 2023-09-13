@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Rec</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+<style>
+
+	/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+	*{
+		margin: 0;
+		padding: 0;
+		font-family: Montserrat;
+		transition: all 0.4s ease;;
+	}
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+	background-color: #314154;
+  }
+  header {
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+	
+  }
+
+  html{
+	scroll-behavior: smooth;
+	
+	/*   *** Storing Colors In Variables ***   */
+	:root{
+		--body-color: #E4E9F7;
+		--nav-color: #4070F4;
+		--side-nav: #010718;
+		--text-color: #FFF;
+		--search-bar: #F2F2F2;
+		--search-text: #010718;
+	}
+}
+.logo {
+	font-weight: 900;
+	opacity: 0;
+	animation: slideLeft 1s ease forwards;
+	animation-delay: 1.6s;
+}
+
+body.dark{
+    --body-color: #18191A;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --search-bar: #242526;
+}
+
+ /*   *** Navbar Styling Starts ***   */
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1200px;
+    width: 100%;
+    background-color: #1A2430;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+	animation: slideTop 2s ease forwards;
+	animation-delay: calc(.1s * var(--i));
+}
+
+.nav-bar .nav-links li{
+    margin: 0 5px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+
+
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
+
+
+  .search-box {
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+   /*   *** Navbar Styling Ends ***   */
+
+.home-content p {
+	font-size: 1.6rem;
+	margin: 2rem 0 4rem;
+	opacity: 0;
+	animation: slideLeft 1s ease forwards;
+	animation-delay: 1.6s;
+}
+
+.home-content p:nth-of-type(1) {
+	animation-delay: 1.6s;
+}
+
+.heading{
+	font-size: 5rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	margin-top: 1rem;
+	opacity: 0;
+	animation: slideRight 1s ease forwards;
+	  animation-delay: 1.3s;
+}
+
+ /*   *** Slide effects on loadging page starts***   */
+
+  @keyframes slideTop {
+	from {
+	  opacity: 0;
+	  transform: translateX(-100px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateX(0);
+	}
+  }
+  @keyframes slideBottom {
+	from {
+	  opacity: 0;
+	  transform: translateY(100px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+  
+  @keyframes slideLeft {
+	from {
+	  opacity: 0;
+	  transform: translateX(-100px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateX(0);
+	}
+  }
+
+  @keyframes slideRight {
+	from {
+	  opacity: 0;
+	  transform: translateX(100px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateX(0);
+	}
+  }
+  
+  /*   *** Slide effects on loadging page ends***   */
+ 
+  main {
+    padding: 20px;
+    text-align: center;
+    background-color: black;
+	background-image: url("images/gameofthroness.png");
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
+  }
+  
+
+  /* Styles for .main-content with glassmorphism effect and positioned on the left */
+.main-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 500px;
+	margin: 6rem 0 0 2rem; /* Margin-top of 6rem, margin-left of 2rem */
+	margin-left: 23rem;
+	margin-top: 6rem;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(10px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	font-size: 2rem;
+	font-weight: 600;
+	color: #fff;
+	opacity: 0;
+	animation: slideLeft 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+  
+  
+  /*   *** Services Section Styling Starts   */
+  .services .services-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 10px;
+  }
+  
+  .services-container .service-box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	flex-basis: 32%;
+	padding: 40px 40px 30px;
+	background-color: #c8c4c4;
+	border: 1px solid var(--bg-clr-three);
+	border-radius: 5px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: 0.4s;
+	z-index: 1;
+	opacity: 0;
+	animation: slideRight 1s ease forwards;
+	animation-delay: 1.6s;
+}
+.service-box .icon-wrapper{
+	position: relative;
+	background-color: #232222;
+	font-size: 30px;
+	width: 55px;
+	height: 55px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+	transition: 0.3s;
+	z-index: 3;
+}
+.service-box .icon-wrapper i{
+	font-size: 24px;
+	color: #232222;
+	transition: 0.3s;
+}
+.service-box h2{
+	padding: 15px 0px 10px;
+	color: var(--secondary-heading);
+	font-size: 20px;
+	transition: 0.3s;
+}
+.service-box p{
+	color: var(--secondary-heading);
+	line-height: 1.3;
+	transition: 0.3s;
+}
+.service-box h3{
+	font-size: 16px;
+	color: rgb(39, 112, 228);
+	margin-top: 50px;
+}
+.services-container .service-box::after{
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 1.3%;
+	background-color: #232222;
+	left: 0%;
+	bottom: 0%;
+	z-index: -1;
+	transition: all 0.4s cubic-bezier(0.69, 0.05, 0, 0.97);
+}
+.services-container .service-box:hover::after{
+	height: 100%;
+}
+.services-container .service-box:hover{
+	transform: translateY(-2px);
+	box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
+}
+.services-container .service-box:hover.service-box .icon-wrapper{
+	background-color: var(--bg-clr-one);
+}
+.services-container .service-box:hover.service-box .icon-wrapper i{
+	color: var(--primary-clr);
+}
+.services-container .service-box:hover.service-box h2{
+	color: #232222;
+}
+.services-container .service-box:hover.service-box p{
+	color: #aaa;
+}
+.services-container .service-box:hover.service-box h3{
+	color: #e3e3e8;
+}
+/*   *** Services Section Styling Ends   */
+.card1 {
+    display: grid;
+	height: auto;
+	max-width: 150px;
+	margin: 20px;
+	border-radius: 3px;
+	overflow: hidden;
+	box-shadow: 5px 5px 20px black;
+	position: relative;
+	opacity: 0;
+	animation: slideBottom 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+
+.card {
+	height: auto;
+	max-width: 300px;
+	margin: 20px;
+	border-radius: 3px;
+	overflow: hidden;
+	box-shadow: 5px 5px 20px black;
+	position: relative;
+	opacity: 0;
+	animation: slideBottom 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+  
+  .card1 img {
+	max-height: 80%;
+	width: 100%;
+	object-fit: cover;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+  }
+
+  .card1:hover {
+	cursor: pointer;
+  }
+  
+  .card1:hover .intro {
+	max-height: 180px;
+	bottom: 0;
+  }
+  
+  .card1:hover p {
+	visibility: visible;
+	opacity: 1;
+  }
+  /*   ***card hover effect ends***   */
+  .container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	opacity: 0;
+	animation: slideLeft 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+  
+  .card img {
+	max-height: 80%;
+	width: 100%;
+	object-fit: cover;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+  }
+  
+  .intro1 {
+	max-height: 100px;
+	padding: 10px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background:#314154;
+	color: white;
+	transition: all 0.5s;
+  }
+
+  .intro {
+	max-height: 100px;
+	padding: 10px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: rgba(14, 14, 13, 0.9);
+	color: white;
+	transition: all 0.5s;
+  }
+  h1{
+	font-size: 5rem; 
+	font-weight: 700; 
+	color: white; 
+	margin-top: 1rem;
+  }
+  
+  h2 {
+	font-size: 30px;
+	margin: 10px 0;
+  }
+  
+  /*   *** Card hover effects starts***   */
+  .card:hover {
+	cursor: pointer;
+  }
+  
+  .card:hover .intro {
+	max-height: 180px;
+	bottom: 0;
+  }
+  
+  .card:hover p {
+	visibility: visible;
+	opacity: 1;
+  }
+  .container_two {
+	position: relative; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px; 
+  }
+  
+  .btn_two {
+	font-size: 1rem;
+	padding: 1rem 3rem;
+	background-color:  rgba(146, 148, 248, 0.4);
+	text-transform: uppercase;
+	text-decoration: none;
+	border: 1px solid rgb(146, 148, 248);
+	position: relative;
+	overflow: hidden;
+	gap: 20px;
+	color: #fff;
+	opacity: 0;
+	animation: slideRight 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+  
+  .btn_two:hover {
+	box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+	transform: translateY(-5px); 
+  }
+  
+  .btn_two:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+	  120deg,
+	  transparent,
+	  rgba(146, 148, 248, 0.4),
+	  transparent
+	);
+	transition: all 650ms;
+  }
+  
+  .btn_two:hover:before {
+	left: 100%;
+  }
+
+  .animate{
+	margin-top: 6rem;
+	opacity: 0;
+	animation: slideBottom 1s ease forwards;
+	animation-delay: 1.6s;
+  }
+
+  .services {
+	margin-top: 4rem;
+  }
+  
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 768px) {
+	.container_two {
+	  margin-top: 10px; /* Adjusted margin-top for smaller screens */
+	}
+  
+	.btn_two {
+	  font-size: 0.9rem;
+	  padding: 0.8rem 2rem;
+	  color: #000;
+	}
+  
+/* Hide the navigation links by default */
+.nav-links {
+    display: none;
+}
+
+/* Style for the menu icon */
+.menu-icon {
+    display: none; /* Hide the menu icon by default */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+}
+.bx-menu:before {
+	font-size: 2.5rem;
+}
+/* Show the navigation links when the menu icon is clicked */
+.show-nav .nav-links {
+    display: block;
+    /* Add your styling for the expanded navigation here */
+}
+
+/* Media query to show the menu icon only on smaller screens */
+    .menu-icon {
+        display: block; /* Show the menu icon on smaller screens */
+    }
+
+    /* Hide the navigation links by default */
+nav a {
+    display: none;
+}
+
+/* Style for the menu icon */
+.menu-icon {
+    display: block; /* Hide the menu icon by default */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+	margin-left: 18rem;
+	margin-top: -6rem;
+}
+
+/* Show the navigation links when the menu icon is clicked */
+.show-nav .nav a {
+    display: block;
+}
+.welcome-text {
+	font-weight: 700;
+	font-size: 1rem;
+	margin-top: -8rem;
+	opacity: 0;
+	animation: slideBottom 1s ease forwards;
+	animation-delay: 1.6s;
+}
+
+section .footer{
+	left: 0;
+	bottom: 12px;
+	width: 100%;
+	padding-top: 80px;
+	background-color:#232222;
+	align-items: center;
+  }
+
+footer {
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+	margin: 0 30px;
+  }
+
+  .main-content {
+	max-width: 80%;
+	margin: 2rem auto;
+	margin-top: 10rem;
+	color: #fff;
+	font-size: 1.5rem;
+  }
+
+  h1{
+	  font-size: 2rem; 
+	  font-weight: 700; 
+	  color: white; 
+	  margin-top: 12rem;
+	  max-width: 70%;
+	  margin-left: 3rem;
+	}
+
+	h2{
+	  font-size: 1.5rem
+	}
+
+	h3{
+	  font-size: 1rem; 
+	  font-weight: 700; 
+	  color: white; 
+	  max-width: 70%;
+	  margin-left: 4rem;
+	}
+  
+	  p{
+		  max-width: 70%;
+		  margin-left: 4rem;
+		  font-size: 0.7rem;
+	  }
+	  
+	  
+	main{
+	  background-color: black
+	}
+	.welcome-image img {
+	  max-width: 100%;
+	  }
+	  .services-container .service-box {
+		  flex: 1;
+		  max-width: 100%;
+		  margin-bottom: 20px;
+	  }
+  
+   #trending-movies .container {
+	  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  #trending-movies .card1 {
+	  max-width: 150px;
+  }
+  #trending-movies .container {
+	  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  #trending-movies .card1 {
+	  max-width: 150px;
+  }
+  .footer {
+	  max-width: 100%;
+	  
+	  }
+	  .legal {
+		  max-width: 100%;
+		  margin-left: 1rem;
+		  font-size: 0.6rem;
+	  }
+	  footer.top {
+		  border-bottom: 2px solid #3a4f6a;
+		  padding-bottom: 20px;
+		  margin-left: 1rem;
+		}
+		footer.top .links {
+		  display: grid;
+		  grid-template-columns: repeat(2, 1fr);
+		  gap: 30px;
+		  margin-left: 1rem;
+		  font-size: 0.6rem;
+		}
+		a {
+		  max-width: 100%;
+		  margin-left: 0rem;
+
+ }
+	}
+  
+  @media (width < 620px) {
+	footer {
+	  flex-direction: column;
+	}
+
+	.legal {
+		font-size: 12px;
+		text-align: center;
+		align-items: center;
+		margin-left: 4rem;
+	  }
+  
+	footer.bottom {
+	  gap: 16px;
+	  flex-direction: column-reverse;
+	}
+  }
+  
+  footer > img {
+	margin-top: 10px;
+  }
+  
+  @media (width >= 620px) {
+	footer {
+	  margin: 0 auto;
+	  max-width: 600px;
+	  padding: 0;
+	  text-align: center;
+	  align-items: center;
+
+	}
+  }
+  
+  footer {
+	color: #a2b5cd;
+  }
+  
+  footer.top {
+	border-bottom: 2px solid #3a4f6a;
+	padding-bottom: 20px;
+  }
+  
+  footer.bottom {
+	padding: 20px 0;
+	justify-content: space-between;
+	
+	
+  }
+  
+  footer.top .links {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 30px;
+  }
+  
+  .links > div {
+	display: grid;
+	gap: 10px;
+	margin-bottom: 30px;
+  }
+  
+  footer h2 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 400;
+	color: #f7f7f7;
+  }
+  
+  .legal {
+	font-size: 12px;
+	text-align: center;
+	align-items: center;
+	margin-left: 7rem;
+  }
+  
+  .legal > a {
+	margin: 0 4px;
+  }
+  
+  .legal > span {
+	margin-right: 10px;
+
+  }
+  
+  footer.bottom .links {
+	display: flex;
+	gap: 18px;
+  }
+  
+  footer.bottom .links > a {
+	font-size: 24px;
+  }
+  
+  @media (width < 420px) {
+	footer {
+	  text-align: center;
+	  align-items: center;
+	}
+  
+	footer.top .links {
+	  grid-template-columns: 1fr;
+	}
+  
+	footer.bottom {
+	  align-items: center;
+	}
+
+	.legal {
+		font-size: 12px;
+		text-align: center;
+		align-items: center;
+		margin-left: -1rem;
+	  }
+  
+	.legal > span {
+	  display: block;
+	  margin-right: 0;
+	  margin-bottom: 2px;
+	}
+  }
+	
+	@media screen and (max-width: 462px) {
+		.main-content {
+			max-width: 80%;
+			margin: 2rem auto;
+			margin-top: 10rem;
+			color: #fff;
+			font-size: 1.5rem;
+		  }
+		
+		  h1{
+			  font-size: 2rem; 
+			  font-weight: 700; 
+			  color: white; 
+			  margin-top: 10rem;
+			}
+			main{
+			  background-color: black
+			}
+			.welcome-text {
+				font-weight: 700;
+				font-size: 1rem;
+				margin-top: -8rem;
+				opacity: 0;
+				animation: slideBottom 1s ease forwards;
+				animation-delay: 1.6s;
+			}
+			.btn_two {
+				font-size: 0.9rem;
+				padding: 0.8rem 2rem;
+				color: #fff;
+			}
+			.menu-icon {
+				display: block; /* Hide the menu icon by default */
+				cursor: pointer; /* Change cursor to indicate it's clickable */
+				margin-left: 23rem;
+			}
+		  }
+
+		  /*   === Screen Size 600px or Smaller  ===   */
+@media(max-width: 600px){
+	.main-content {
+		max-width: 80%;
+		margin: 2rem auto;
+		margin-top: 19rem;
+		color: #fff;
+		font-size: 1.5rem;
+	  }
+	
+	  h1{
+		  font-size: 2rem; 
+		  font-weight: 700; 
+		  color: white; 
+	
+		}
+		main{
+		  background-color: black
+		}
+		.welcome-text {
+			font-weight: 700;
+			font-size: 1rem;
+			margin-top: -2rem;
+			opacity: 0;
+			animation: slideBottom 1s ease forwards;
+			animation-delay: 1.6s;
+		}
+		
+		.btn_two {
+			font-size: 0.9rem;
+			padding: 0.8rem 2rem;
+			color: #fff;
+		}
+	}
+
+/*   === Screen Size 550px or Smaller  ===   */
+@media(max-width: 550px){
+	.main-content {
+		max-width: 80%;
+		margin: 2rem auto;
+		margin-top: 3rem;
+		color: #fff;
+		font-size: 1.5rem;
+	  }
+	
+	  h1{
+		  font-size: 2rem; 
+		  font-weight: 700; 
+		  color: white; 
+		  margin-top: 15rem;
+	
+		}
+		main{
+		  background-color: black
+		}
+		.welcome-text {
+			font-weight: 700;
+			font-size: 1rem;
+			margin-top: -2rem;
+			opacity: 0;
+			animation: slideBottom 1s ease forwards;
+			animation-delay: 1.6s;
+		}
+		
+		.btn_two {
+			font-size: 0.9rem;
+			padding: 0.8rem 2rem;
+			color: #fff;
+		}
+	}
+
+/*   === Screen Size 350px or Smaller  ===   */
+@media screen and (max-width: 360px) {
+	.main-content {
+		max-width: 80%;
+		margin: 2rem auto;
+		margin-top: 10rem;
+		color: #fff;
+		font-size: 1.5rem;
+	  }
+	
+	  h1{
+		  font-size: 1.5rem; 
+		  font-weight: 700; 
+		  color: white; 
+		  margin-top: 10rem;
+		}
+		main{
+		  background-color: black
+		}
+		.welcome-text {
+			font-weight: 700;
+			font-size: 1rem;
+			margin-top: -8rem;
+			opacity: 0;
+			animation: slideBottom 1s ease forwards;
+			animation-delay: 1.6s;
+		}
+		.btn_two {
+			font-size: 0.9rem;
+			padding: 0.8rem 2rem;
+			color: #fff;
+		}
+		.menu-icon {
+			display: block; /* Hide the menu icon by default */
+			cursor: pointer; /* Change cursor to indicate it's clickable */
+			margin-left: 23rem;
+		}
+	  }
+
+/*   *** Media Query Ends ***   */
+  
+</style>
+</head>
+<header>
+	<!---Navbar starts--->
+		<nav>
+			<div class="nav-bar">
+				<i class='bx bx-menu sidebarOpen' ></i>
+				<span class="logo navLogo" ><a href="#"style="font-weight: 900; font-size: 2rem;">Movie Rec.</a></span>
+	
+				<div class="menu">
+					<div class="logo-toggle">
+						<span class="logo"><a href="#">Movie Rec.</a></span>
+						<i class='bx bx-x siderbarClose'></i>
+					</div>
+	
+					<ul class="nav-links">
+						<li><a href="#">Home</a></li>
+						<li><a href="#Selections" id="trending-link">Selections</a></li>
+						<li><a href="#Genres" id="Genres-link">Genres</a></li>
+						<li> <a href="#trending" id="favorites-link">Trending</a></li>
+						<li> <a href="#box-office-movies" id="box-office">Box Office</a></li>
+						<!---<li><a href="#">Contact</a></li>--->
+					</ul>
+				</div>
+	
+				<input type="text" class="search-box" placeholder="Search Genre...">
+
+				</div>
+    </nav>
+	<!---Navbar ends--->
+  </header>
+
+<body>
+  <main>
+	<!---landing main page starts starts--->
+    <div class="welcome-text">
+      <h1>
+        Welcome to Your Movie Adventure!
+      </h1>
+	  
+      <div class="main-content">
+        <h2>This is a site for lovers of movies! You can search for movies based on genres and get suggestions for movies with similar genres.</h2>
+			<!---<div class="container_two">
+				<a href="#" class="btn_two">Sign in</a>
+				<a href="#" class="btn_two">Sign up</a>
+			</div>-->
+		</div>
+    </div>
+  </main>
+	<!---landing main page ends--->
+
+	<!---Selections section starts--->
+    <section id="Selections" class="animate">
+      <header class="headings">
+        <h2>Selections</h2>
+        <h3>Discover the Latest Blockbusters: Mixed selections of Movies That Are Taking the Spotlight!</h3>
+        <p> Uncover handpicked movie recommendations tailored just for you. Dive into a world of personalized<br> cinema choices that match your tastes and preferences, guiding you through an unforgettable<br> movie-watching experience.</p>
+      
+		<div class="container">
+            <div class="card1">
+                <img src="images/joker.png" alt="">
+                <div class="intro1">
+                    <h2 style="font-size: 0.8rem;">Thriller</h2>
+                    
+                </div>
+            </div>
+    
+            <div class="container">
+                <div class="card1">
+                    <img src="images/jumanji.png" alt="">
+                    <div class="intro1">
+                        <h2 style="font-size: 0.8rem;">Adventure</h2>
+                       
+                    </div>
+                </div>
+    
+            <div class="container">
+                <div class="card1">
+                    <img src="images/johnwick.png" alt="">
+                    <div class="intro1">
+                        <h2 style="font-size: 0.8rem;">Action</h2>
+                        
+                    </div>
+                </div>
+				<div class="container">
+					<div class="card1">
+						<img src="images/peakyblinder.png" alt="">
+						<div class="intro1">
+							<h2 style="font-size: 0.8rem;">Epic</h2>
+							
+						</div>
+					</div>
+					<div class="container">
+						<div class="card1">
+							<img src="images/thering.png" alt="">
+							<div class="intro1">
+								<h2 style="font-size: 0.8rem;">Horror</h2>
+								
+							</div>
+						</div>
+						<div class="container">
+							<div class="card1">
+								<img src="images/mk.png" alt="">
+								<div class="intro1">
+									<h2 style="font-size: 0.8rem;">Action</h2>
+								</div>
+							</div>
+            			</div>
+        		</div>
+        </section>
+    <!---Selections section ends--->
+
+<!---Genres section starts--->
+<section class="services" id="Genres">
+	<header class="headings">
+		<h2>Genres</h2>
+		<h3>Explore Cinematic Diversity: Delve into a vast array of movie genres that cater to every mood and interest. </h3>
+		<p>From action-packed adventures to heartwarming romances, our curated genres offer something for everyone,<br> ensuring you find the perfect movie to match your mood.</p>
+	</header>
+
+	<div class="services-container">
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-palette"></i>
+			</div>
+			<h2>Action</h2>
+			<p> Experience adrenaline-packed films with epic stunts and intense battles. Get ready for non-stop thrills and adventure.</p>
+		</div>
+
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-code"></i>
+			</div>
+			<h2>Comedy</h2>
+			<p> Laugh out loud with hilarious comedies. Enjoy witty humor, funny situations, and lighthearted entertainment. Comedy films are your ticket to smiles and laughter.</p>
+		</div>
+
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-mobile-screen"></i>
+			</div>
+			<h2>Horror</h2>
+			<p>Brace yourself for spine-chilling experiences. Dive into the world of fear, suspense, and the unknown. Horror movies deliver nail-biting thrills and hair-raising scares.</p>
+		</div>
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-palette"></i>
+			</div>
+			<h2>Science Fiction</h2>
+			<p>Explore the limitless possibilities of the future. Immerse yourself in advanced technology, otherworldly adventures, and mind-bending concepts. Science fiction films take you on a journey beyond reality</p>
+		</div>
+
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-code"></i>
+			</div>
+			<h2>Romance</h2>
+			<p>Fall in love with heartwarming stories suggestions. Experience the magic of budding relationships, passionate love, and unforgettable moments. Romance movies bring the joy of love to the screen.</p>
+		</div>
+
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-mobile-screen"></i>
+			</div>
+			<h2>Animation</h2>
+			<p>Enter the world of animated wonders. Discover enchanting stories, vibrant characters, and imaginative worlds. Animation films bring creativity and magic to life.</p>
+		</div>
+
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-mobile-screen"></i>
+			</div>
+			<h2>Documentary</h2>
+			<p>Explore the real world with insightful narratives. Dive into factual storytelling, thought-provoking subjects, and the essence of truth. Documentaries provide an authentic glimpse into our world.</p>
+		</div>
+		
+		<div class="service-box">
+			<div class="icon-wrapper">
+				<i class="fa-solid fa-mobile-screen"></i>
+			</div>
+			<h2>Adventure</h2>
+			<p>Embark on thrilling journeys to the unknown. Experience daring quests, exotic locales, and adrenaline-fueled escapades. Adventure movies promise excitement and exploration.</p>
+		</div>
+	</div>
+	<!---Genres section ends--->
+
+	<!---Trending section starts--->
+	<section id="trending" class="animate">
+	<header class="headings">
+		<h2>Trending</h2>
+		<h3>Curated Selection: Explore Trending movies <br>for the Best Picks!</h3>
+		<p> Dive into a curated collection of trending movies, handpicked to provide<br> you with the best cinematic experiences. Discover hidden gems and popular choices <br> that resonate with fellow movie enthusiasts, making your movie <br> journey even more exciting.</p>
+	</header>
+	<div class="container">
+		<div class="card">
+			<img src="images/fast10.jpg" alt="">
+			<div class="intro">
+				<h3>Fast & Furious</h3>
+				<p>The <span>Movie</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores repellat ut tempore? Veritatis odio quo sit nihil. Fuga eos quisquam quis doloremque, maiores, officiis, atque aliquam est nostrum quos officia.</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="card">
+				<img src="images/mission.jpeg" alt="">
+				<div class="intro">
+					<h3>Mission: Impossible</h3>
+					<p>The <span>Movie</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores repellat ut tempore? Veritatis odio quo sit nihil. Fuga eos quisquam quis doloremque, maiores, officiis, atque aliquam est nostrum quos officia.</p>
+				</div>
+			</div>
+
+		<div class="container">
+			<div class="card">
+				<img src="images/wakanda.jpg" alt="">
+				<div class="intro">
+					<h3>Black Panther</h3>
+					<p>The <span>Movie</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores repellat ut tempore? Veritatis odio quo sit nihil. Fuga eos quisquam quis doloremque, maiores, officiis, atque aliquam est nostrum quos officia.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+	<!---Trending section ends--->
+
+	<!---Box Office Movies section starts--->
+	<section id="box-office-movies" class="box-office">
+		<header class="headings">
+		  <h2>Box Office Movies</h2>
+		  <h3>Top Box Office Picks: Must-See Movies</h3>
+		  <p> Discover top blockbuster movies for thrilling entertainment and captivating stories worth searching for through our website</p>
+		
+		  <div class="container">
+			  <div class="card1">
+				  <img src="images/adamd.jpg" alt="">
+				  <div class="intro1">
+					  <h2 style="font-size: 0.8rem;">Box Office</h2>
+					  
+				  </div>
+			  </div>
+	  
+			  <div class="container">
+				  <div class="card1">
+					  <img src="images/book.jpg" alt="">
+					  <div class="intro1">
+						  <h2 style="font-size: 0.8rem;">Box Office</h2>
+						 
+					  </div>
+				  </div>
+	  
+			  <div class="container">
+				  <div class="card1">
+					  <img src="images/blackdemon.jpg" alt="">
+					  <div class="intro1">
+						  <h2 style="font-size: 0.8rem;">Box Office</h2>
+						  
+					  </div>
+				  </div>
+				  <div class="container">
+					  <div class="card1">
+						  <img src="images/fast10.jpg" alt="">
+						  <div class="intro1">
+							  <h2 style="font-size: 0.8rem;">Box Office</h2>
+							  
+						  </div>
+					  </div>
+					  <div class="container">
+						  <div class="card1">
+							  <img src="images/kandahar.jpg" alt="">
+							  <div class="intro1">
+								  <h2 style="font-size: 0.8rem;">Box Office</h2>
+								  
+							  </div>
+						  </div>
+						  <div class="container">
+							  <div class="card1">
+								  <img src="images/mario.png" alt="">
+								  <div class="intro1">
+									  <h2 style="font-size: 0.8rem;">Box Office</h2>
+								  </div>
+							  </div>
+						  </div>
+				  </div>
+		  </section>
+		  <!---Box Office Movies section ends--->
+
+		  <!---footer section starts--->
+	<section id="footer" class="footer">
+		<footer class="top">
+			<a href="#" style="font-weight: 800; font-size: 2.5rem; font-family: Montserrat; color: #eef1f6; text-decoration: none;">Movie Rec.</a>
+			<div class="links">
+				<div>
+					<h2>Explore</h2>
+					<a href="#" style="text-decoration: none; color: white; cursor: pointer;">Home</a>
+					<a href="#trending-movies" id="trending-link" style="text-decoration: none; color: white; cursor: pointer;">Trending Movies</a>
+					<a href="#Genres" id="Genres-link" style="text-decoration: none; color: white; cursor: pointer;">Genres</a>
+					<a href="#users-favorites" id="favorites-link" style="text-decoration: none; color: white; cursor: pointer;">Users Favorites</a>
+				</div>
+				<div>
+					<h2 style="color: white;">About Us</h2>
+					<a href="#" style="text-decoration: none; color: white; cursor: pointer;">About the Website</a>
+					<a href="#" style="text-decoration: none; color: white; cursor: pointer;">Contact Us</a>
+					<a href="#" style="text-decoration: none; color: white; cursor: pointer;">Privacy Policy</a>
+					<a href="#" style="text-decoration: none; color: white; cursor: pointer;">Terms of Service</a>
+				</div>
+			</div>
+		</footer>
+		<footer class="bottom">
+			<div class="legal">
+				<span>© 2023 All rights reserved</span>
+				<a>License</a>
+				<a>Terms</a>
+				<a>Privacy</a>
+			</div>
+			<div class="links">
+				<a class="fa-brands fa-github"></a>
+				<a class="fa-brands fa-linkedin"></a>
+				<a class="fa-brands fa-docker"></a>
+			</div>
+		</footer>
+	</section>
+	<!---footer section ends--->
+
+  <script src="index1.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
