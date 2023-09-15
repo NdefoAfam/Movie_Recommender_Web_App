@@ -40,7 +40,7 @@ To set up the project locally, follow these steps:
 3. Use the search feature to find movies related to specific keywords or genres.
 4. Enjoy discovering new movies to watch based on your preferences.
 
-## Contributors
+## Authors
 
 - [Ndefo Afam](https://github.com/NdefoAfam).
 - [Uzochukwu Godwin](https://github.com/UzochukwuGodwin).
